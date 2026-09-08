@@ -1,0 +1,36 @@
+---
+title: Projects
+permalink: /projects/
+layout: layouts/default.njk
+description: Software built by the UWA NLP-TLP Group, including Redcoat, LexiClean, QuickGraph, Text2KG, Echidna and Aquila. Each system has a live demo and the paper behind it.
+eleventyNavigation:
+  key: Projects
+  order: 3
+---
+
+<p class="page-intro">
+	Our research is only useful to industry once it is software someone can open.
+	Each of these systems came out of a paper and is running now; most are open
+	source on <a href="https://github.com/nlp-tlp/" target="_blank" rel="noopener">our GitHub</a>.
+</p>
+
+{% for item in collections.software_demos %}
+	<article class="project" id="{{ item.data.name | slugify }}">
+		<div class="project-shot">
+			<img src="/images/software-demos/{{ item.data.image_filename }}" alt="Screenshot of {{ item.data.name }}" loading="lazy">
+		</div>
+		<div class="project-body">
+			<h2>{{ item.data.name }}</h2>
+			<p class="project-byline">{{ item.data.byline }}</p>
+			<p class="project-description">{{ item.data.description | safe }}</p>
+			<p class="project-links">
+				{% if item.data.demo_link %}
+					<a class="button" href="{{ item.data.demo_link }}" target="_blank" rel="noopener">Open {{ item.data.name }}</a>
+				{% endif %}
+				{% if item.data.paper_link %}
+					<a class="button button-quiet" href="{{ item.data.paper_link }}" target="_blank" rel="noopener">Read the paper{% if item.data.paper_venue %} ({{ item.data.paper_venue }}){% endif %}</a>
+				{% endif %}
+			</p>
+		</div>
+	</article>
+{% endfor %}

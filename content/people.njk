@@ -1,0 +1,43 @@
+---
+title: People
+permalink: /people/
+layout: layouts/default.njk
+description: The academics, PhD students and alumni of the UWA NLP-TLP Group at The University of Western Australia.
+eleventyNavigation:
+  key: People
+  order: 4
+---
+
+<p class="page-intro">
+	The group brings together computer science, linguistics and engineering.
+	Several of us hold joint appointments with UWA's School of Engineering and
+	with industry partners.
+</p>
+
+<section class="people-section">
+	<h2>Academics</h2>
+	<div class="grid-2">
+	{% for item in collections.people_academics | sortByOrder %}
+		{% include 'partials/person.njk' %}
+	{% endfor %}
+	</div>
+</section>
+
+<section class="people-section">
+	<h2>PhD students</h2>
+	<div class="grid-2">
+	{% for item in collections.people_phd_students | sortByOrder %}
+		{% include 'partials/person.njk' %}
+	{% endfor %}
+	</div>
+</section>
+
+<section class="people-section">
+	<h2>Alumni</h2>
+	<p class="section-intro">Former members of the group and where their work went.</p>
+	<div class="grid-2">
+	{% for item in collections.people_alumni | sortByOrder %}
+		{% include 'partials/person.njk' %}
+	{% endfor %}
+	</div>
+</section>

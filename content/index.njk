@@ -1,56 +1,83 @@
 ---
 layout: layouts/base.njk
 full_hero: true
+wide: true
+description: "The UWA NLP-TLP Group researches natural and technical language processing, building methods and software that read the terse, domain-specific text industry actually writes."
 eleventyNavigation:
   key: Home
   order: 1
 ---
 
-<section class="width-80">
-	<div class="homepage-logo">
-		<img src="images/logos/nlp-tlp-logo.png" alt="UWA logo" />
-	</div>
-	<p>
-		The UWA NLP-TLP Group is a team of researchers conducting
-		state-of-the-art research in
-		<b>natural and technical language processing</b> at The University of
-		Western Australia in Perth, Western Australia. Our work is based in
-		the following areas:
+<section class="lede-section">
+	<p class="lede">
+		We are a research group at The University of Western Australia working on
+		<b>natural and technical language processing</b>: how machines read the
+		terse, misspelt, jargon-heavy text that industry actually writes, and how
+		the knowledge inside it can be given a shape that can be reasoned over.
 	</p>
-	<p>
-		<ul class="chevron-bullets extra-indent">
-			<li>Entity recognition</li>
-			<li>Lexical normalisation</li>
-			<li>Knowledge graphs</li>
-			<li>Language models</li>
-			<li>Ontologies</li>
-			<li>Annotation</li>
-			<li>Adaptive user interfaces</li>
-			<li>Knowledge representation and reasoning</li>
-		</ul>
+	<p class="lede-support">
+		Maintenance work orders, inspection notes, drilling logs and geological
+		reports are written under time pressure by domain experts, for domain
+		experts. General-purpose language models handle them worst of all. Our
+		research runs from annotation and lexical normalisation through entity
+		recognition and knowledge graph construction to ontologies and reasoning,
+		and we push it out as software that practitioners can use.
 	</p>
-	<div class="width-80 center-margin">
-		<div class="team-photo width-30">
-			<img style="width: 100%; height: auto; display: block;" src="images/photo/team-build-2024.jpg" alt="NLP-TLP Team Building 2024" />
+</section>
+
+<section class="home-section">
+	<h2 class="section-heading">What we build</h2>
+	<p class="section-intro">
+		Every system below came out of the group's research and is running today.
+	</p>
+	<ul class="project-strip">
+		{% for item in collections.software_demos %}
+		<li>
+			<a href="/projects/#{{ item.data.name | slugify }}">
+				<span class="project-strip-name">{{ item.data.name }}</span>
+				<span class="project-strip-byline">{{ item.data.byline }}</span>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+	<p class="section-more"><a href="/projects/">All projects, with demos and papers</a></p>
+</section>
+
+<section class="home-section">
+	<h2 class="section-heading">What we research</h2>
+	<div class="theme-grid">
+		{% for theme in themes %}
+		<div class="theme-card">
+			<h3><a href="/research/#{{ theme.slug }}">{{ theme.name }}</a></h3>
+			<p>{{ theme.blurb }}</p>
 		</div>
+		{% endfor %}
 	</div>
-	<p>
-		We have a strong collaborative spirit and are well-connected globally.
-		We have made a wide range of contributions to top-tier international
-		conferences such as EMNLP, ICDM, and KR.
+</section>
+
+<section class="home-section" id="who-we-work-with">
+	<h2 class="section-heading">Who we work with</h2>
+	<p class="section-intro">
+		Our work is done with industry partners and with research groups in
+		Australia, Europe, the United Kingdom and the United States.
 	</p>
-	<p>
-		Our research group is unique in that we strive ensure our research is
-		translated to <b>practical software</b> so that it can be directly
-		used by industry. We have developed a number of
-		<a href="/software_demos/">software tools</a>, including the
-		Text2KG system which won the first prize at the
-		<a
-			href="https://ieeexplore.ieee.org/abstract/document/8970692"
-			target="_blank"
-		>
-			2019 ICDM Knowledge Graph Contest
-		</a>
-		.
+	<ul class="partner-list">
+		{% for item in collections.collaborations %}
+		<li>
+			<a href="{{ item.data.url }}" target="_blank" rel="noopener">
+				<span class="partner-logo"><img src="/images/collaborations/{{ item.data.image_filename }}" alt="" loading="lazy"></span>
+				<span class="partner-name">{{ item.data.name }}</span>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</section>
+
+<section class="home-section home-section-quiet">
+	<h2 class="section-heading">Join us</h2>
+	<p class="section-intro">
+		We supervise PhD and honours students across all of the areas above, and
+		we work with industry on applied projects.
+		<a href="/contacts/">Get in touch</a>.
 	</p>
 </section>

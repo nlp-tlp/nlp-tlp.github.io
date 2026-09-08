@@ -65,6 +65,29 @@ module.exports = function (eleventyConfig) {
 		);
 	});
 
+	// Select the items of a collection whose legacy `group` belongs to a theme.
+	// The theme -> group mapping lives in _data/themes.js.
+	eleventyConfig.addFilter("inTheme", (items, groups) => {
+		if (!Array.isArray(items)) return [];
+		return items.filter((item) => (groups || []).includes(item.data.group));
+	});
+
+	// Items whose group belongs to no theme at all, so nothing is silently
+	// dropped from the research page when a new group name appears.
+	eleventyConfig.addFilter("notInAnyTheme", (items, themes) => {
+		if (!Array.isArray(items)) return [];
+		const claimed = new Set((themes || []).flatMap((t) => t.groups));
+		return items.filter((item) => !claimed.has(item.data.group));
+	});
+
+	// The YouTube video id, so a talk can be shown as a thumbnail that links
+	// out rather than an embedded player. Twenty-six embedded players on one
+	// page is a slow page and a lot of third-party cookies.
+	eleventyConfig.addFilter("getYoutubeId", (youtubeLink) => {
+		const match = /[?&]v=([^&]+)/.exec(youtubeLink || "");
+		return match ? match[1] : "";
+	});
+
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
 		// Formatting tokens for Luxon: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
@@ -128,6 +151,9 @@ module.exports = function (eleventyConfig) {
 		return new Date().toISOString();
 	});
 
+	// The footer copyright year, so it can never go stale again.
+	eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
 	// Add the CNAME file into the _site folder
 	// (this allows GitHub pages to know about nlp-tlp.org)
 	eleventyConfig.addPassthroughCopy("CNAME");
@@ -140,6 +166,21 @@ module.exports = function (eleventyConfig) {
 			["text2kg", "https://text2kg.nlp-tlp.org/"],
 			["echidna", "https://echidna.nlp-tlp.org/"],
 			["maintenance_kg", "https://echidna.nlp-tlp.org/"],
+
+			// Pages the 2026 restructure folded into Research, Projects and
+			// Contacts. Kept so existing inbound links and search results
+			// still land somewhere useful instead of a 404.
+			["publications/index", "/research/"],
+			["presentations/index", "/research/"],
+			["seminars/index", "/research/#seminars"],
+			["current-research/index", "/research/#current-projects"],
+			["collaborations/index", "/#who-we-work-with"],
+			["software_demos/index", "/projects/"],
+			["software-demos/index", "/projects/"],
+			["our-team/index", "/people/"],
+			["contact-us/index", "/contacts/"],
+			["phd-opportunities/index", "/contacts/#phd-and-honours-opportunities"],
+			["news/index", "/"],
 		];
 
 		return redirects;

@@ -6,16 +6,19 @@ pagination:
   alias: redirect
 permalink: "{{redirect[0]}}.html"
 layout: ""
+eleventyExcludeFromCollections: true
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="1; URL='{{ redirect[1] }}'" />
-  <title>Redirecting to: {{ redirect[1] }}</title>
+  <meta http-equiv="refresh" content="0; URL='{{ redirect[1] }}'" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="{{ redirect[1] }}" />
+  <title>Redirecting to {{ redirect[1] }}</title>
 </head>
 <body>
-    You are being redirected to <a href="{{ redirect[1] }}">{{ redirect[1] }}</a>
+    This page has moved. <a href="{{ redirect[1] }}">Continue to {{ redirect[1] }}</a>.
 </body>
 </html>

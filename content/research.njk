@@ -1,0 +1,134 @@
+---
+title: Research
+permalink: /research/
+layout: layouts/default.njk
+description: "Research at the UWA NLP-TLP Group, organised by theme: technical language processing, knowledge graphs and ontologies, annotation and tooling, and language models and reasoning."
+eleventyNavigation:
+  key: Research
+  order: 2
+---
+
+<p class="page-intro">
+	Our work runs from the raw text an engineer types into a work order through
+	to a knowledge graph an organisation can reason over. It is grouped here by
+	theme rather than by whether the output was a paper or a talk.
+</p>
+
+<nav class="theme-jump" aria-label="Research themes">
+	<ul>
+		{% for theme in themes %}
+			<li><a href="#{{ theme.slug }}">{{ theme.name }}</a></li>
+		{% endfor %}
+		<li><a href="#current-projects">Current projects</a></li>
+		<li><a href="#seminars">Seminars</a></li>
+	</ul>
+</nav>
+
+{% for theme in themes %}
+	{%- set papers = collections.publications | inTheme(theme.groups) %}
+	{%- set talks = collections.presentations | inTheme(theme.groups) %}
+	<section class="theme-section" id="{{ theme.slug }}">
+		<h2>{{ theme.name }}</h2>
+		<p class="theme-blurb">{{ theme.blurb }}</p>
+
+		{% if papers.length %}
+			<h3 class="theme-subheading">Publications</h3>
+			<ul class="publications-list">
+			{% for item in papers %}
+				<li>
+					<div class="publication-title">
+						{% if item.data.url %}
+							<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+						{% else %}
+							{{ item.data.title }}
+						{% endif %}
+					</div>
+					<div class="publication-authors">{{ item.data.authors }}</div>
+					<div class="publication-venue">{{ item.data.venue }}</div>
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if talks.length %}
+			<h3 class="theme-subheading">Talks</h3>
+			<ul class="talk-grid">
+			{% for item in talks %}
+				{%- set vid = item.data.url | getYoutubeId %}
+				<li class="talk">
+					<a href="{{ item.data.url }}" target="_blank" rel="noopener">
+						{% if vid %}
+							<span class="talk-thumb">
+								<img src="https://i.ytimg.com/vi/{{ vid }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+								<span class="talk-play" aria-hidden="true"></span>
+							</span>
+						{% endif %}
+						<span class="talk-title">{{ item.data.title }}</span>
+					</a>
+					{% if item.data.authors %}
+						<p class="talk-meta">{{ item.data.authors }}{% if item.data.presentation_date %}, {{ item.data.presentation_date }}{% endif %}</p>
+					{% endif %}
+					{% if item.data.description %}
+						<p class="talk-description">{{ item.data.description }}</p>
+					{% endif %}
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</section>
+{% endfor %}
+
+{%- set orphanPapers = collections.publications | notInAnyTheme(themes) %}
+{%- set orphanTalks = collections.presentations | notInAnyTheme(themes) %}
+{% if orphanPapers.length or orphanTalks.length %}
+	<section class="theme-section" id="other">
+		<h2>Other work</h2>
+		<ul class="publications-list">
+		{% for item in orphanPapers %}
+			<li>
+				<div class="publication-title">
+					{% if item.data.url %}<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>{% else %}{{ item.data.title }}{% endif %}
+				</div>
+				<div class="publication-authors">{{ item.data.authors }}</div>
+				<div class="publication-venue">{{ item.data.venue }}</div>
+			</li>
+		{% endfor %}
+		{% for item in orphanTalks %}
+			<li>
+				<div class="publication-title"><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a></div>
+				<div class="publication-authors">{{ item.data.authors }}</div>
+			</li>
+		{% endfor %}
+		</ul>
+	</section>
+{% endif %}
+
+<section class="theme-section" id="current-projects">
+	<h2>Current projects</h2>
+	<p class="theme-blurb">
+		Work under way now, with the students and partners doing it.
+	</p>
+	{% for group, items in collections.current_research | groupby("data.group") %}
+		<h3 class="theme-subheading">{{ group }}</h3>
+		{% for item in items %}
+			<article class="research-article">
+				<h4>{{ item.data.name }}</h4>
+				{% if item.data.authors %}<p class="research-authors">{{ item.data.authors }}</p>{% endif %}
+				<p>{{ item.data.description | safe }}</p>
+			</article>
+		{% endfor %}
+	{% endfor %}
+</section>
+
+<section class="theme-section" id="seminars">
+	<h2>Seminars</h2>
+	{% for item in collections.seminars %}
+		<article class="research-article">
+			<h3>{{ item.data.title }}</h3>
+			<p class="research-authors">
+				Facilitated by {{ item.data.facilitated_by }}{% if item.data.seminar_date %}, {{ item.data.seminar_date }}{% endif %}{% if item.data.venue %}, {{ item.data.venue }}{% endif %}
+			</p>
+			{{ item.content | safe }}
+		</article>
+	{% endfor %}
+</section>

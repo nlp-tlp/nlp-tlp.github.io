@@ -4,50 +4,58 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>{% if title %}{{ metadata.title + " - " + title}}{% else %}{{metadata.title }}{% endif %}</title>
-		<meta name="description" content="{{ description or metadata.description }}">
+		{%- set pageTitle = metadata.title + " - " + title if title else metadata.title %}
+		{%- set pageDescription = description or metadata.description %}
+		{%- set pageUrl = metadata.origin + page.url %}
+
+		<title>{{ pageTitle }}</title>
+		<meta name="description" content="{{ pageDescription }}">
+		<link rel="canonical" href="{{ pageUrl }}">
+
+		{#- Open Graph and Twitter cards, so a link to the group looks like
+		    something when it is shared rather than a bare URL. #}
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="{{ metadata.title }}">
+		<meta property="og:title" content="{{ pageTitle }}">
+		<meta property="og:description" content="{{ pageDescription }}">
+		<meta property="og:url" content="{{ pageUrl }}">
+		<meta property="og:image" content="{{ metadata.origin }}/images/logos/nlp-tlp-logo.png">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="{{ pageTitle }}">
+		<meta name="twitter:description" content="{{ pageDescription }}">
 
 		<link rel="shortcut icon" href="/images/favicon.ico">
-		<link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
-
-		{#- Atom and JSON feeds included by default #}
-		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
-		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
-
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
-		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
-		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
-
-		{#-
-		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
-		1. You can add to them using `{% css %}`
-		2. You can get from them using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
-		3. You can do the same for JS: {% js %}{% endjs %} and <script>{% getBundle "js" %}</script>
-		4. Learn more: https://github.com/11ty/eleventy-plugin-bundle
-		#}
-
-		<link rel="stylesheet" href="/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/vendor/lightbox/css/lightbox.min.css">
-
-
-		{#- Add an arbitrary string to the bundle #}
 		{%- css %}* { box-sizing: border-box; }{% endcss %}
-		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
-		{#- Or add from node_modules #}
-		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
-
-		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
 		<style>{% getBundle "css" %}</style>
-		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
-		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<script src="/vendor/lightbox/js/lightbox.min.js"></script>
+
+		{#- Tells search engines that this is a research organisation and who
+		    is in it. Without it the group's name is just words on a page. #}
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "ResearchOrganization",
+			"name": "UWA NLP-TLP Group",
+			"alternateName": "Centre for Natural and Technical Language Processing",
+			"url": "{{ metadata.url }}",
+			"logo": "{{ metadata.origin }}/images/logos/nlp-tlp-logo.png",
+			"parentOrganization": {
+				"@type": "CollegeOrUniversity",
+				"name": "The University of Western Australia",
+				"url": "https://www.uwa.edu.au/"
+			},
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Perth",
+				"addressRegion": "WA",
+				"addressCountry": "AU"
+			}
+		}
+		</script>
 	</head>
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
@@ -56,12 +64,20 @@
 
 		{% include 'partials/hero.njk' %}
 
-		<div class="container main-flex-container flex-container padded-v-4x">
-		    {% include 'partials/sidenav.njk' %}
-		    <main class="padded margin-left-3x" id="skip">
-		    {{ content | safe }}
-		    </main>
-		</div>
+		{% if wide %}
+			<div class="container padded-v-4x">
+				<main id="skip">
+				{{ content | safe }}
+				</main>
+			</div>
+		{% else %}
+			<div class="container main-flex-container flex-container padded-v-4x">
+				{% include 'partials/sidenav.njk' %}
+				<main class="padded margin-left-3x" id="skip">
+				{{ content | safe }}
+				</main>
+			</div>
+		{% endif %}
 
 		{% include 'partials/footer.njk' %}
 

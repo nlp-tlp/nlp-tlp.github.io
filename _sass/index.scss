@@ -412,11 +412,17 @@ ul.chevron-bullets {
   }
 
   li:before {
-    font-family: "FontAwesome";
-    content: "\f054";
-    margin: 0 15px 0 -15px;
-    color: rgba($primary-color-dark-3, 0.5);
-    font-size: 0.7em;
+    // Was a FontAwesome glyph; drawn in CSS so the whole 4.7 vendor
+    // directory can go.
+    content: "";
+    display: inline-block;
+    width: 0.36em;
+    height: 0.36em;
+    border-right: 2px solid rgba($primary-color-dark-3, 0.5);
+    border-bottom: 2px solid rgba($primary-color-dark-3, 0.5);
+    transform: rotate(-45deg);
+    margin: 0 15px 2px -15px;
+    vertical-align: middle;
   }
   li a {
     font-weight: normal;
@@ -1112,4 +1118,543 @@ article {
 
 b {
   font-weight: bold;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   2026 restructure: home, research themes, projects, people, contacts.
+   Palette stays the institutional UWA blue already defined above; gold is
+   the crest's second colour and is used only to mark the current section.
+   ───────────────────────────────────────────────────────────────────────── */
+
+$gold: #c8a415;
+$ink: #22262e;
+$muted: #5b6472;
+$rule: #d9dee8;
+$wash: #f5f7fb;
+
+@mixin measure {
+  max-width: 68ch;
+}
+
+.external-mark {
+  margin-left: 6px;
+  opacity: 0.6;
+  vertical-align: baseline;
+}
+
+/* The page name in the condensed hero on inner pages. */
+#hero .hero-text-page {
+  h1 {
+    margin: 0;
+    font-size: 2.6em;
+    line-height: 1.1;
+  }
+}
+
+/* ── Shared page furniture ─────────────────────────────────────────────── */
+
+.page-intro {
+  @include measure;
+  font-size: 1.06em;
+  line-height: 1.65;
+  color: $muted;
+  margin: 0 0 2.5em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid $rule;
+}
+
+.section-heading {
+  font-size: 1.45em;
+  margin: 0 0 0.5em;
+}
+
+.section-intro {
+  @include measure;
+  color: $muted;
+  margin: 0 0 1.5em;
+}
+
+.section-more {
+  margin: 1.5em 0 0;
+  font-size: 0.95em;
+}
+
+/* ── Home ──────────────────────────────────────────────────────────────── */
+
+.lede-section {
+  max-width: 60ch;
+  margin-bottom: 4rem;
+}
+
+.lede {
+  font-family: $heading_font;
+  font-size: 1.5em;
+  line-height: 1.5;
+  color: $ink;
+  margin: 0 0 1em;
+  b {
+    font-weight: 600;
+  }
+}
+
+.lede-support {
+  color: $muted;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.home-section {
+  padding-top: 2.5rem;
+  margin-bottom: 3.5rem;
+  border-top: 1px solid $rule;
+}
+
+.home-section-quiet {
+  .section-intro {
+    margin-bottom: 0;
+  }
+}
+
+/* The six systems, as a plain indexed list rather than a wall of cards:
+   the names are the point, the descriptions are one line each. */
+.project-strip {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $rule;
+
+  li {
+    border-bottom: 1px solid $rule;
+  }
+
+  a {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 0.85rem 0.5rem 0.85rem 0;
+    text-decoration: none;
+    color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      background: $wash;
+      .project-strip-name {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.project-strip-name {
+  flex: 0 0 8.5rem;
+  font-family: $heading_font;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.project-strip-byline {
+  color: $muted;
+  font-size: 0.95em;
+  line-height: 1.45;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
+
+  h3 {
+    margin: 0 0 0.4em;
+    font-size: 1.12em;
+    a {
+      text-decoration: none;
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    color: $muted;
+    line-height: 1.6;
+    font-size: 0.96em;
+  }
+}
+
+.partner-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: $ink;
+    &:hover .partner-name,
+    &:focus-visible .partner-name {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  img {
+    max-height: 52px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+}
+
+.partner-name {
+  font-size: 0.88em;
+  line-height: 1.4;
+  color: $muted;
+}
+
+/* ── Research ──────────────────────────────────────────────────────────── */
+
+.theme-jump {
+  margin: 0 0 3rem;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+  a {
+    display: inline-block;
+    padding: 0.35em 0.8em;
+    border: 1px solid $rule;
+    border-radius: 2px;
+    font-size: 0.9em;
+    text-decoration: none;
+    color: $muted;
+    &:hover,
+    &:focus-visible {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+  }
+}
+
+.theme-section {
+  margin-bottom: 4rem;
+  scroll-margin-top: 1.5rem;
+
+  > h2 {
+    width: auto;
+    margin: 0 0 0.5em;
+    padding-bottom: 0.35em;
+    border-bottom: 3px solid $gold;
+    display: inline-block;
+  }
+}
+
+.theme-blurb {
+  @include measure;
+  color: $muted;
+  line-height: 1.7;
+  margin: 0 0 2em;
+}
+
+.theme-subheading {
+  font-size: 1.02em;
+  color: $muted;
+  font-family: $primary_font;
+  font-weight: 600;
+  margin: 2em 0 0.75em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid $rule;
+}
+
+.talk-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.talk {
+  a {
+    text-decoration: none;
+    color: $ink;
+    display: block;
+    &:hover .talk-title,
+    &:focus-visible .talk-title {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+    &:hover .talk-play,
+    &:focus-visible .talk-play {
+      background: $primary-color;
+    }
+  }
+}
+
+.talk-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: $wash;
+  border: 1px solid $rule;
+  margin-bottom: 0.7rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.talk-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba($primary-color-dark-2, 0.85);
+  transition: background 0.15s ease;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 52%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-left: 14px solid #fff;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+  }
+}
+
+.talk-title {
+  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.talk-meta,
+.talk-description {
+  margin: 0.4em 0 0;
+  color: $muted;
+  font-size: 0.9em;
+  line-height: 1.55;
+}
+
+.research-article {
+  @include measure;
+  margin-bottom: 2em;
+
+  h3,
+  h4 {
+    margin: 0 0 0.2em;
+  }
+}
+
+.research-authors {
+  margin: 0 0 0.6em;
+  color: $muted;
+  font-size: 0.92em;
+}
+
+/* ── Projects ──────────────────────────────────────────────────────────── */
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid $rule;
+  scroll-margin-top: 1.5rem;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  h2 {
+    margin: 0 0 0.15em;
+  }
+}
+
+.project-shot {
+  border: 1px solid $rule;
+  background: $wash;
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.project-byline {
+  margin: 0 0 1em;
+  color: $muted;
+  line-height: 1.5;
+}
+
+.project-description {
+  margin: 0 0 1.5em;
+  line-height: 1.7;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.button-quiet {
+  background: transparent;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  &:hover,
+  &:focus-visible {
+    background: $wash;
+  }
+}
+
+/* ── People and contacts ───────────────────────────────────────────────── */
+
+.people-section,
+.contact-section {
+  margin-bottom: 3.5rem;
+
+  > h2 {
+    width: auto;
+    margin: 0 0 0.6em;
+    padding-bottom: 0.35em;
+    border-bottom: 3px solid $gold;
+    display: inline-block;
+  }
+}
+
+.contact-section p {
+  @include measure;
+  line-height: 1.7;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+footer a,
+footer a:visited {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 3px;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: #fff;
+  }
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  p {
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+.footer-heading {
+  font-weight: 600;
+  margin-bottom: 0.5em !important;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0.5em 0 0;
+  padding: 0;
+  li {
+    margin-bottom: 0.35em;
+  }
+}
+
+.footer-fineprint {
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 992px) {
+  .theme-grid,
+  .talk-grid,
+  .project {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project {
+    gap: 1.5rem;
+  }
+  .project-shot {
+    max-width: 420px;
+  }
+  .partner-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .footer-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .project-strip a {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .project-strip-name {
+    flex: none;
+  }
+  .partner-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+  #hero .hero-text-page h1 {
+    font-size: 2em;
+  }
+  .lede {
+    font-size: 1.25em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
 }
