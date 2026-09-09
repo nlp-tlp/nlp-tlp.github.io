@@ -28,8 +28,8 @@ eleventyNavigation:
 			<p>{{ theme.blurb }}</p>
 			<p class="theme-card-counts">
 				{{ papers.length }} publication{% if papers.length != 1 %}s{% endif %}
-				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
 				{%- if demos.length %}, {{ demos.length }} system{% if demos.length != 1 %}s{% endif %}{% endif %}
+				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
 				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %}{% endif %}
 				{%- if sems.length %}, {{ sems.length }} seminar{% if sems.length != 1 %}s{% endif %}{% endif %}
 			</p>
@@ -46,31 +46,6 @@ eleventyNavigation:
 
 	<section class="theme-block" id="{{ theme.slug }}">
 		<h2 class="theme-block-title">{{ theme.name }}</h2>
-
-		{% if demos.length %}
-			<h3 class="theme-subheading">Systems</h3>
-			<ul class="project-strip">
-				{% for item in demos %}
-				<li>
-					<a href="/projects/#{{ item.data.name | slugify }}">
-						<span class="project-strip-name">{{ item.data.name }}</span>
-						<span class="project-strip-byline">{{ item.data.byline }}</span>
-					</a>
-				</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-
-		{% if projects.length %}
-			<h3 class="theme-subheading">Projects under way</h3>
-			{% for item in projects %}
-				<article class="research-article">
-					<h4>{{ item.data.name }}</h4>
-					<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
-					<p>{{ item.data.description | safe }}</p>
-				</article>
-			{% endfor %}
-		{% endif %}
 
 		{% if papers.length %}
 			<h3 class="theme-subheading">Publications</h3>
@@ -90,7 +65,19 @@ eleventyNavigation:
 			{% endfor %}
 			</ul>
 		{% endif %}
-
+		{% if demos.length %}
+			<h3 class="theme-subheading">Systems</h3>
+			<ul class="project-strip">
+				{% for item in demos %}
+				<li>
+					<a href="/projects/#{{ item.data.name | slugify }}">
+						<span class="project-strip-name">{{ item.data.name }}</span>
+						<span class="project-strip-byline">{{ item.data.byline }}</span>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
 		{% if talks.length %}
 			<h3 class="theme-subheading">Talks</h3>
 			<ul class="talk-grid">
@@ -116,7 +103,16 @@ eleventyNavigation:
 			{% endfor %}
 			</ul>
 		{% endif %}
-
+		{% if projects.length %}
+			<h3 class="theme-subheading">Projects under way</h3>
+			{% for item in projects %}
+				<article class="research-article">
+					<h4>{{ item.data.name }}</h4>
+					<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
+					<p>{{ item.data.description | safe }}</p>
+				</article>
+			{% endfor %}
+		{% endif %}
 		{% if sems.length %}
 			<h3 class="theme-subheading">Seminars</h3>
 			{% for item in sems %}
