@@ -88,6 +88,17 @@ module.exports = function (eleventyConfig) {
 		return match ? match[1] : "";
 	});
 
+	// Current projects carry a `theme` slug in their front matter.
+	eleventyConfig.addFilter("withTheme", (items, slug) => {
+		if (!Array.isArray(items)) return [];
+		return items.filter((item) => item.data.theme === slug);
+	});
+	eleventyConfig.addFilter("withoutAnyTheme", (items, themes) => {
+		if (!Array.isArray(items)) return [];
+		const slugs = new Set((themes || []).map((t) => t.slug));
+		return items.filter((item) => !slugs.has(item.data.theme));
+	});
+
 	// The software systems belonging to a theme, matched by name.
 	eleventyConfig.addFilter("demosOfTheme", (items, names) => {
 		if (!Array.isArray(items)) return [];
@@ -191,7 +202,7 @@ module.exports = function (eleventyConfig) {
 			["publications/index", "/research/"],
 			["presentations/index", "/research/"],
 			["seminars/index", "/research/#seminars"],
-			["current-research/index", "/research/#current-projects"],
+			["current-research/index", "/research/"],
 			["collaborations/index", "/#who-we-work-with"],
 			["software_demos/index", "/projects/"],
 			["software-demos/index", "/projects/"],

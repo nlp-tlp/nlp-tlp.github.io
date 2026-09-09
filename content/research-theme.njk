@@ -17,6 +17,7 @@ eleventyComputed:
 {%- set papers = collections.publications | inTheme(theme.groups) | newestFirst %}
 {%- set talks = collections.presentations | inTheme(theme.groups) | newestFirst %}
 {%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
+{%- set projects = collections.current_research | withTheme(theme.slug) %}
 
 <p class="page-intro">{{ theme.blurb }}</p>
 
@@ -35,6 +36,19 @@ eleventyComputed:
 		</li>
 		{% endfor %}
 	</ul>
+</section>
+{% endif %}
+
+{% if projects.length %}
+<section class="theme-section">
+	<h2>Current projects</h2>
+	{% for item in projects %}
+		<article class="research-article">
+			<h3>{{ item.data.name }}</h3>
+			<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
+			<p>{{ item.data.description | safe }}</p>
+		</article>
+	{% endfor %}
 </section>
 {% endif %}
 

@@ -19,6 +19,7 @@ eleventyNavigation:
 		{%- set papers = collections.publications | inTheme(theme.groups) %}
 		{%- set talks = collections.presentations | inTheme(theme.groups) %}
 		{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
+		{%- set projects = collections.current_research | withTheme(theme.slug) %}
 		<li class="theme-card-large">
 			<h2><a href="/research/{{ theme.slug }}/">{{ theme.name }}</a></h2>
 			<p>{{ theme.blurb }}</p>
@@ -26,6 +27,7 @@ eleventyNavigation:
 				{{ papers.length }} publication{% if papers.length != 1 %}s{% endif %}
 				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
 				{%- if demos.length %}, {{ demos.length }} system{% if demos.length != 1 %}s{% endif %}{% endif %}
+				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %} under way{% endif %}
 			</p>
 		</li>
 	{% endfor %}
@@ -56,22 +58,20 @@ eleventyNavigation:
 	</section>
 {% endif %}
 
+{%- set unthemed = collections.current_research | withoutAnyTheme(themes) %}
+{% if unthemed.length %}
 <section class="theme-section" id="current-projects">
-	<h2>Current projects</h2>
-	<p class="theme-blurb">
-		Work under way now, with the students and partners doing it.
-	</p>
-	{% for group, items in collections.current_research | groupby("data.group") %}
-		<h3 class="theme-subheading">{{ group }}</h3>
-		{% for item in items %}
-			<article class="research-article">
-				<h4>{{ item.data.name }}</h4>
-				{% if item.data.authors %}<p class="research-authors">{{ item.data.authors }}</p>{% endif %}
-				<p>{{ item.data.description | safe }}</p>
-			</article>
-		{% endfor %}
+	<h2>Other current projects</h2>
+	<p class="theme-blurb">Work under way that does not sit under a single theme.</p>
+	{% for item in unthemed %}
+		<article class="research-article">
+			<h3>{{ item.data.name }}</h3>
+			<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
+			<p>{{ item.data.description | safe }}</p>
+		</article>
 	{% endfor %}
 </section>
+{% endif %}
 
 <section class="theme-section" id="seminars">
 	<h2>Seminars</h2>
