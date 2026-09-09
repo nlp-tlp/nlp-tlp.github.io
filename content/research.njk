@@ -45,7 +45,9 @@ eleventyNavigation:
 	{%- set sems = collections.seminars | withTheme(theme.slug) %}
 
 	<section class="theme-block" id="{{ theme.slug }}">
-		<h2 class="theme-block-title">{{ theme.name }}</h2>
+		<div class="theme-block-bar">
+			<h2 class="theme-block-title">{{ theme.name }}</h2>
+		</div>
 
 		{% if papers.length %}
 			<div class="theme-part">
@@ -149,7 +151,9 @@ eleventyNavigation:
 {%- set looseSeminars = collections.seminars | withoutAnyTheme(themes) %}
 {% if orphanPapers.length or orphanTalks.length or unthemed.length or looseSeminars.length %}
 	<section class="theme-block" id="other">
-		<h2 class="theme-block-title">Other work</h2>
+		<div class="theme-block-bar">
+			<h2 class="theme-block-title">Other work</h2>
+		</div>
 		<p class="theme-blurb">Work that does not sit under a single theme.</p>
 		{% for item in unthemed %}
 			<article class="research-article">

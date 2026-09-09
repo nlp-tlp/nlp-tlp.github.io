@@ -1903,9 +1903,33 @@ header .header-mark img {
   margin-bottom: 0;
 }
 
+/* The theme name stays at the top of the viewport while its own block is
+   being read, so it is always clear which topic the rows below belong to.
+   The bar carries the page background; the title alone is inline-block and
+   would let content show through beside it. */
+.theme-block-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #eee;
+  padding: 1.5rem 0 1rem;
+  margin-bottom: 1.25rem;
+  /* Rows scrolling underneath meet the bar, not the gold rule. */
+}
+.theme-block-bar:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 1.25rem;
+  background: linear-gradient(#eee, rgba(238, 238, 238, 0));
+  pointer-events: none;
+}
+
 .theme-block-title {
   width: auto;
-  margin: 0 0 2.25rem;
+  margin: 0;
   padding-bottom: 0.3em;
   font-size: 1.9em;
   line-height: 1.15;
