@@ -366,43 +366,6 @@ footer {
   mix-blend-mode: screen;
 }
 
-nav.sidenav {
-  min-width: $sidenav-width;
-  width: $sidenav-width;
-  background: rgba($primary-color, 0.05);
-  border-radius: 8px;
-  line-height: 180%;
-
-  @media (max-width: 800px) {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  h3 {
-    color: $primary-color-dark-2;
-    margin: 0;
-    margin-bottom: 6px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba($primary-color, 0.2);
-    font-size: 1.1em;
-  }
-  ul {
-    //list-style: none;
-  }
-
-  .new-item {
-    color: white;
-    margin-left: 1em;
-    border-radius: 10px;
-    background: rgb(204, 165, 6);
-    font-size: 0.7em;
-    padding: 0.4em 0.5em;
-    transform: translate(-2px, -2px);
-    display: inline-block;
-    line-height: 100%;
-  }
-}
-
 ul.chevron-bullets {
   list-style: none;
   padding: 0 20px;
@@ -922,24 +885,6 @@ section {
   }
 }
 
-.homepage-logo {
-  width: 240px;
-  height: 240px;
-  float: right;
-  margin-left: 20px;
-  margin-right: -60px;
-  margin-top: 10px;
-  //box-shadow: 1px 2px 6px -2px #111;
-  border-radius: 50%;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-  @media (max-width: 992px) {
-    width: 180px;
-    height: 180px;
-  }
-}
 // Transitions between pages
 
 div.route-section {
@@ -2097,4 +2042,43 @@ header {
   .project-strip-wide .project-strip-name {
     flex: none;
   }
+}
+
+/* ── Phones ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  /* Three people across a 390px screen leaves about 100px per name. */
+  .people-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  /* The sticky theme name costs less of a short screen. */
+  .theme-block-bar {
+    padding: 1rem 0 0.75rem;
+  }
+
+  .theme-block-title {
+    font-size: 1.45em;
+  }
+
+  .theme-part-label {
+    font-size: 0.85em;
+  }
+
+  .lede {
+    font-size: 1.15em;
+  }
+
+  /* Talk thumbnails are the widest thing on the page; keep them in bounds. */
+  .talk-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Nothing may push the page sideways on a narrow screen. */
+img,
+.talk-thumb,
+.project-shot {
+  max-width: 100%;
 }

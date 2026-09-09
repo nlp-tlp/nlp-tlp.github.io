@@ -564,39 +564,6 @@ footer hr {
   mix-blend-mode: screen;
 }
 
-nav.sidenav {
-  min-width: 300px;
-  width: 300px;
-  background: rgba(36, 67, 151, 0.05);
-  border-radius: 8px;
-  line-height: 180%;
-}
-@media (max-width: 800px) {
-  nav.sidenav {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-}
-nav.sidenav h3 {
-  color: rgb(10.2673796791%, 19.1087344029%, 43.0659536542%);
-  margin: 0;
-  margin-bottom: 6px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(36, 67, 151, 0.2);
-  font-size: 1.1em;
-}
-nav.sidenav .new-item {
-  color: white;
-  margin-left: 1em;
-  border-radius: 10px;
-  background: rgb(204, 165, 6);
-  font-size: 0.7em;
-  padding: 0.4em 0.5em;
-  transform: translate(-2px, -2px);
-  display: inline-block;
-  line-height: 100%;
-}
-
 ul.chevron-bullets {
   list-style: none;
   padding: 0 20px;
@@ -1056,26 +1023,6 @@ section.width-80 {
 }
 .button:focus {
   transform: translate(1px, 1px);
-}
-
-.homepage-logo {
-  width: 240px;
-  height: 240px;
-  float: right;
-  margin-left: 20px;
-  margin-right: -60px;
-  margin-top: 10px;
-  border-radius: 50%;
-}
-.homepage-logo img {
-  width: 100%;
-  height: 100%;
-}
-@media (max-width: 992px) {
-  .homepage-logo {
-    width: 180px;
-    height: 180px;
-  }
 }
 
 div.route-section {
@@ -2139,6 +2086,37 @@ header .header-mark img {
   .project-strip-wide .project-strip-name {
     flex: none;
   }
+}
+/* ── Phones ────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Three people across a 390px screen leaves about 100px per name. */
+  .people-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+  /* The sticky theme name costs less of a short screen. */
+  .theme-block-bar {
+    padding: 1rem 0 0.75rem;
+  }
+  .theme-block-title {
+    font-size: 1.45em;
+  }
+  .theme-part-label {
+    font-size: 0.85em;
+  }
+  .lede {
+    font-size: 1.15em;
+  }
+  /* Talk thumbnails are the widest thing on the page; keep them in bounds. */
+  .talk-grid {
+    gap: 1.5rem;
+  }
+}
+/* Nothing may push the page sideways on a narrow screen. */
+img,
+.talk-thumb,
+.project-shot {
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=index.css.map */
