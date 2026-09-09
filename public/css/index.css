@@ -1894,66 +1894,52 @@ header .header-mark img {
     font-size: 0.9em;
   }
 }
-/* ── Research theme cards and theme pages ──────────────────────────────── */
-.theme-cards {
-  list-style: none;
-  margin: 0 0 4rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+/* ── Research: one block per theme, each holding everything for it ─────── */
+.theme-block {
+  margin-bottom: 4.5rem;
+  scroll-margin-top: 1.5rem;
+}
+.theme-block:last-child {
+  margin-bottom: 0;
 }
 
-.theme-card-large {
+.theme-block-head {
   border: 1px solid #d9dee8;
+  border-left: 4px solid #c8a415;
   background: #fff;
-  padding: 1.6rem 1.7rem;
+  padding: 1.5rem 1.7rem;
+  margin-bottom: 2rem;
 }
-.theme-card-large h2 {
-  margin: 0 0 0.5em;
-  font-size: 1.25em;
+.theme-block-head h2 {
   width: auto;
+  margin: 0 0 0.45em;
+  font-size: 1.4em;
 }
-.theme-card-large h2 a {
-  text-decoration: none;
-}
-.theme-card-large h2 a:hover, .theme-card-large h2 a:focus-visible {
-  text-decoration: underline;
-}
-.theme-card-large p {
+
+.theme-block-blurb {
+  max-width: 68ch;
   margin: 0;
   color: #5b6472;
-  line-height: 1.6;
-  font-size: 0.96em;
+  line-height: 1.65;
 }
 
-.theme-card-counts {
-  margin-top: 1rem !important;
+.theme-block-counts {
+  margin: 1rem 0 0;
   padding-top: 0.8rem;
   border-top: 1px solid #d9dee8;
-  font-size: 0.85em !important;
+  font-size: 0.85em;
+  color: #5b6472;
 }
 
-.crumb {
-  margin: -1.5rem 0 2.5rem;
-  font-size: 0.9em;
+/* Inside a block the sub-headings carry the structure, so they need a
+   little more presence than the plain label they were. */
+.theme-block .theme-subheading {
+  font-size: 1.05em;
+  color: #22262e;
+  margin-top: 2.5em;
 }
-
-.theme-next {
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid #d9dee8;
-}
-.theme-next .theme-grid {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-@media (max-width: 992px) {
-  .theme-cards {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.theme-block .theme-subheading:first-of-type {
+  margin-top: 0;
 }
 
 /*# sourceMappingURL=index.css.map */

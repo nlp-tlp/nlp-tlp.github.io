@@ -11,73 +11,155 @@ eleventyNavigation:
 <p class="page-intro">
 	Our work runs from the raw text an engineer types into a work order through
 	to a knowledge graph an organisation can reason over. It sits in four
-	themes; each one collects the papers, talks and software that came out of it.
+	themes; each one gathers the systems, projects, papers and talks that came
+	out of it.
 </p>
 
-<ul class="theme-cards">
-	{% for theme in themes %}
-		{%- set papers = collections.publications | inTheme(theme.groups) %}
-		{%- set talks = collections.presentations | inTheme(theme.groups) %}
-		{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
-		{%- set projects = collections.current_research | withTheme(theme.slug) %}
-		<li class="theme-card-large">
-			<h2><a href="/research/{{ theme.slug }}/">{{ theme.name }}</a></h2>
-			<p>{{ theme.blurb }}</p>
-			<p class="theme-card-counts">
+<nav class="theme-jump" aria-label="Research themes">
+	<ul>
+		{% for theme in themes %}
+			<li><a href="#{{ theme.slug }}">{{ theme.name }}</a></li>
+		{% endfor %}
+		<li><a href="#seminars">Seminars</a></li>
+	</ul>
+</nav>
+
+{% for theme in themes %}
+	{%- set papers = collections.publications | inTheme(theme.groups) | newestFirst %}
+	{%- set talks = collections.presentations | inTheme(theme.groups) | newestFirst %}
+	{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
+	{%- set projects = collections.current_research | withTheme(theme.slug) %}
+
+	<section class="theme-block" id="{{ theme.slug }}">
+		<div class="theme-block-head">
+			<h2>{{ theme.name }}</h2>
+			<p class="theme-block-blurb">{{ theme.blurb }}</p>
+			<p class="theme-block-counts">
 				{{ papers.length }} publication{% if papers.length != 1 %}s{% endif %}
 				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
 				{%- if demos.length %}, {{ demos.length }} system{% if demos.length != 1 %}s{% endif %}{% endif %}
 				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %} under way{% endif %}
 			</p>
-		</li>
-	{% endfor %}
-</ul>
+		</div>
+
+		{% if demos.length %}
+			<h3 class="theme-subheading">Systems</h3>
+			<ul class="project-strip">
+				{% for item in demos %}
+				<li>
+					<a href="/projects/#{{ item.data.name | slugify }}">
+						<span class="project-strip-name">{{ item.data.name }}</span>
+						<span class="project-strip-byline">{{ item.data.byline }}</span>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if projects.length %}
+			<h3 class="theme-subheading">Projects under way</h3>
+			{% for item in projects %}
+				<article class="research-article">
+					<h4>{{ item.data.name }}</h4>
+					<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
+					<p>{{ item.data.description | safe }}</p>
+				</article>
+			{% endfor %}
+		{% endif %}
+
+		{% if papers.length %}
+			<h3 class="theme-subheading">Publications</h3>
+			<ul class="publications-list">
+			{% for item in papers %}
+				<li>
+					<div class="publication-title">
+						{% if item.data.url %}
+							<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+						{% else %}
+							{{ item.data.title }}
+						{% endif %}
+					</div>
+					<div class="publication-authors">{{ item.data.authors }}</div>
+					<div class="publication-venue">{{ item.data.venue }}</div>
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if talks.length %}
+			<h3 class="theme-subheading">Talks</h3>
+			<ul class="talk-grid">
+			{% for item in talks %}
+				{%- set vid = item.data.url | getYoutubeId %}
+				<li class="talk">
+					<a href="{{ item.data.url }}" target="_blank" rel="noopener">
+						{% if vid %}
+							<span class="talk-thumb">
+								<img src="https://i.ytimg.com/vi/{{ vid }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+								<span class="talk-play" aria-hidden="true"></span>
+							</span>
+						{% endif %}
+						<span class="talk-title">{{ item.data.title }}</span>
+					</a>
+					{% if item.data.authors %}
+						<p class="talk-meta">{{ item.data.authors }}{% if item.data.presentation_date %}, {{ item.data.presentation_date }}{% endif %}</p>
+					{% endif %}
+					{% if item.data.description %}
+						<p class="talk-description">{{ item.data.description }}</p>
+					{% endif %}
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</section>
+{% endfor %}
 
 {%- set orphanPapers = collections.publications | notInAnyTheme(themes) %}
 {%- set orphanTalks = collections.presentations | notInAnyTheme(themes) %}
-{% if orphanPapers.length or orphanTalks.length %}
-	<section class="theme-section" id="other">
-		<h2>Other work</h2>
-		<ul class="publications-list">
-		{% for item in orphanPapers %}
-			<li>
-				<div class="publication-title">
-					{% if item.data.url %}<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>{% else %}{{ item.data.title }}{% endif %}
-				</div>
-				<div class="publication-authors">{{ item.data.authors }}</div>
-				<div class="publication-venue">{{ item.data.venue }}</div>
-			</li>
+{%- set unthemed = collections.current_research | withoutAnyTheme(themes) %}
+{% if orphanPapers.length or orphanTalks.length or unthemed.length %}
+	<section class="theme-block" id="other">
+		<div class="theme-block-head">
+			<h2>Other work</h2>
+			<p class="theme-block-blurb">Work that does not sit under a single theme.</p>
+		</div>
+		{% for item in unthemed %}
+			<article class="research-article">
+				<h4>{{ item.data.name }}</h4>
+				<p class="research-authors">{{ item.data.authors }}</p>
+				<p>{{ item.data.description | safe }}</p>
+			</article>
 		{% endfor %}
-		{% for item in orphanTalks %}
-			<li>
-				<div class="publication-title"><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a></div>
-				<div class="publication-authors">{{ item.data.authors }}</div>
-			</li>
-		{% endfor %}
-		</ul>
+		{% if orphanPapers.length or orphanTalks.length %}
+			<ul class="publications-list">
+			{% for item in orphanPapers %}
+				<li>
+					<div class="publication-title">
+						{% if item.data.url %}<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>{% else %}{{ item.data.title }}{% endif %}
+					</div>
+					<div class="publication-authors">{{ item.data.authors }}</div>
+					<div class="publication-venue">{{ item.data.venue }}</div>
+				</li>
+			{% endfor %}
+			{% for item in orphanTalks %}
+				<li>
+					<div class="publication-title"><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a></div>
+					<div class="publication-authors">{{ item.data.authors }}</div>
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
 	</section>
 {% endif %}
 
-{%- set unthemed = collections.current_research | withoutAnyTheme(themes) %}
-{% if unthemed.length %}
-<section class="theme-section" id="current-projects">
-	<h2>Other current projects</h2>
-	<p class="theme-blurb">Work under way that does not sit under a single theme.</p>
-	{% for item in unthemed %}
-		<article class="research-article">
-			<h3>{{ item.data.name }}</h3>
-			<p class="research-authors">{{ item.data.authors }}{% if item.data.group %} &middot; {{ item.data.group }}{% endif %}</p>
-			<p>{{ item.data.description | safe }}</p>
-		</article>
-	{% endfor %}
-</section>
-{% endif %}
-
-<section class="theme-section" id="seminars">
-	<h2>Seminars</h2>
+<section class="theme-block" id="seminars">
+	<div class="theme-block-head">
+		<h2>Seminars</h2>
+		<p class="theme-block-blurb">Reading and discussion sessions the group runs.</p>
+	</div>
 	{% for item in collections.seminars %}
 		<article class="research-article">
-			<h3>{{ item.data.title }}</h3>
+			<h4>{{ item.data.title }}</h4>
 			<p class="research-authors">
 				Facilitated by {{ item.data.facilitated_by }}{% if item.data.seminar_date %}, {{ item.data.seminar_date }}{% endif %}{% if item.data.venue %}, {{ item.data.venue }}{% endif %}
 			</p>

@@ -41,7 +41,7 @@ eleventyNavigation:
 	<div class="theme-grid">
 		{% for theme in themes %}
 		<div class="theme-card">
-			<h3><a href="/research/{{ theme.slug }}/">{{ theme.name }}</a></h3>
+			<h3><a href="/research/#{{ theme.slug }}">{{ theme.name }}</a></h3>
 			<p>{{ theme.blurb }}</p>
 		</div>
 		{% endfor %}

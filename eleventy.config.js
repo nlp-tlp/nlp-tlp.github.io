@@ -210,6 +210,10 @@ module.exports = function (eleventyConfig) {
 			["contact-us/index", "/contacts/"],
 			["phd-opportunities/index", "/contacts/#phd-and-honours-opportunities"],
 			["news/index", "/"],
+			["research/technical-language-processing/index", "/research/#technical-language-processing"],
+			["research/knowledge-graphs-and-ontologies/index", "/research/#knowledge-graphs-and-ontologies"],
+			["research/annotation-and-tools/index", "/research/#annotation-and-tools"],
+			["research/language-and-reasoning/index", "/research/#language-and-reasoning"],
 		];
 
 		return redirects;
