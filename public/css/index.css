@@ -1966,16 +1966,18 @@ header .header-mark img {
 }
 /* ── One rhythm for everything inside a theme block ────────────────────────
    Publications, systems, projects and talks were four different components
-   with four different left edges, indents and spacings. They now share a
-   single row pattern: flush left, hairline separated, same vertical step. */
+   with four different left edges and spacings. They share one now: flush
+   left, same vertical step, and separated by space rather than by rules.
+   A line per row turned the page into a grid; the only rules left are the
+   one under each theme title and the ones the cards already carry. */
 .theme-block .theme-subheading {
   font-size: 0.85em;
   letter-spacing: 0.04em;
   color: #5b6472;
   font-weight: 600;
-  margin: 3rem 0 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #22262e;
+  margin: 3.25rem 0 1.25rem;
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 .theme-block .theme-subheading:first-of-type {
   margin-top: 0;
@@ -1991,9 +1993,12 @@ header .header-mark img {
   line-height: 1.45;
 }
 .theme-block ul.publications-list li {
-  margin: 0;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #d9dee8;
+  margin: 0 0 1.35rem;
+  padding: 0;
+  border-bottom: 0;
+}
+.theme-block ul.publications-list li:last-child {
+  margin-bottom: 0;
 }
 .theme-block ul.publications-list .publication-title {
   font-weight: 600;
@@ -2006,22 +2011,29 @@ header .header-mark img {
   font-size: 0.88em;
 }
 .theme-block {
-  /* Systems: same rows, minus the border the strip draws for itself. */
+  /* Systems: same stack, no strip borders. */
 }
 .theme-block .project-strip {
   border-top: 0;
 }
+.theme-block .project-strip li {
+  border-bottom: 0;
+}
 .theme-block .project-strip a {
-  padding: 0.9rem 0;
+  padding: 0.4rem 0.5rem 0.4rem 0;
+  margin-bottom: 0.35rem;
 }
 .theme-block {
   /* Projects: a row too, with the description held to a readable measure. */
 }
 .theme-block .research-article {
   max-width: none;
-  margin: 0;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #d9dee8;
+  margin: 0 0 2rem;
+  padding: 0;
+  border-bottom: 0;
+}
+.theme-block .research-article:last-child {
+  margin-bottom: 0;
 }
 .theme-block .research-article h4 {
   margin: 0 0 0.2em;
@@ -2038,12 +2050,8 @@ header .header-mark img {
   line-height: 1.6;
   color: #5b6472;
 }
-.theme-block {
-  /* Talks: a grid rather than a stack, but starting on the same left edge
-     and opening with the same step below the heading. */
-}
 .theme-block .talk-grid {
-  margin-top: 0.9rem;
+  margin-top: 0;
   gap: 2rem 1.75rem;
 }
 
