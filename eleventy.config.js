@@ -88,6 +88,24 @@ module.exports = function (eleventyConfig) {
 		return match ? match[1] : "";
 	});
 
+	// The software systems belonging to a theme, matched by name.
+	eleventyConfig.addFilter("demosOfTheme", (items, names) => {
+		if (!Array.isArray(items)) return [];
+		return items.filter((item) => (names || []).includes(item.data.name));
+	});
+
+	// Publications and talks carry their year inside a free-text venue string
+	// rather than a date field, so pull the last plausible year out of it to
+	// order them newest first. Anything with no year sorts to the end.
+	const yearOf = (item) => {
+		const text = `${item.data.venue || ""} ${item.data.presentation_date || ""}`;
+		const years = (text.match(/\b(19|20)\d{2}\b/g) || []).map(Number);
+		return years.length ? Math.max(...years) : 0;
+	};
+	eleventyConfig.addFilter("newestFirst", (items) =>
+		Array.isArray(items) ? [...items].sort((a, b) => yearOf(b) - yearOf(a)) : [],
+	);
+
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
 		// Formatting tokens for Luxon: https://moment.github.io/luxon/#/formatting?id=table-of-tokens

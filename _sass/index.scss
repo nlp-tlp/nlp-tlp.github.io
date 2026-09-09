@@ -1827,3 +1827,71 @@ header {
     }
   }
 }
+
+/* ── Research theme cards and theme pages ──────────────────────────────── */
+
+.theme-cards {
+  list-style: none;
+  margin: 0 0 4rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.theme-card-large {
+  border: 1px solid $rule;
+  background: #fff;
+  padding: 1.6rem 1.7rem;
+
+  h2 {
+    margin: 0 0 0.5em;
+    font-size: 1.25em;
+    width: auto;
+
+    a {
+      text-decoration: none;
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    color: $muted;
+    line-height: 1.6;
+    font-size: 0.96em;
+  }
+}
+
+.theme-card-counts {
+  margin-top: 1rem !important;
+  padding-top: 0.8rem;
+  border-top: 1px solid $rule;
+  font-size: 0.85em !important;
+}
+
+.crumb {
+  margin: -1.5rem 0 2.5rem;
+  font-size: 0.9em;
+}
+
+.theme-next {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid $rule;
+
+  .theme-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .theme-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

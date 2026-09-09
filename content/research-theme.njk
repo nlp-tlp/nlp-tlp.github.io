@@ -1,0 +1,102 @@
+---
+pagination:
+  data: themes
+  size: 1
+  alias: theme
+  # Without this only the first generated page joins collections, so the
+  # sitemap would list one theme page instead of all four.
+  addAllPagesToCollections: true
+permalink: "/research/{{ theme.slug }}/"
+layout: layouts/default.njk
+eleventyExcludeFromCollections: false
+eleventyComputed:
+  title: "{{ theme.name }}"
+  description: "{{ theme.blurb }}"
+---
+
+{%- set papers = collections.publications | inTheme(theme.groups) | newestFirst %}
+{%- set talks = collections.presentations | inTheme(theme.groups) | newestFirst %}
+{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
+
+<p class="page-intro">{{ theme.blurb }}</p>
+
+<nav class="crumb"><a href="/research/">All research themes</a></nav>
+
+{% if demos.length %}
+<section class="theme-section">
+	<h2>Systems</h2>
+	<ul class="project-strip">
+		{% for item in demos %}
+		<li>
+			<a href="/projects/#{{ item.data.name | slugify }}">
+				<span class="project-strip-name">{{ item.data.name }}</span>
+				<span class="project-strip-byline">{{ item.data.byline }}</span>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</section>
+{% endif %}
+
+{% if papers.length %}
+<section class="theme-section">
+	<h2>Publications</h2>
+	<ul class="publications-list">
+	{% for item in papers %}
+		<li>
+			<div class="publication-title">
+				{% if item.data.url %}
+					<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+				{% else %}
+					{{ item.data.title }}
+				{% endif %}
+			</div>
+			<div class="publication-authors">{{ item.data.authors }}</div>
+			<div class="publication-venue">{{ item.data.venue }}</div>
+		</li>
+	{% endfor %}
+	</ul>
+</section>
+{% endif %}
+
+{% if talks.length %}
+<section class="theme-section">
+	<h2>Talks</h2>
+	<ul class="talk-grid">
+	{% for item in talks %}
+		{%- set vid = item.data.url | getYoutubeId %}
+		<li class="talk">
+			<a href="{{ item.data.url }}" target="_blank" rel="noopener">
+				{% if vid %}
+					<span class="talk-thumb">
+						<img src="https://i.ytimg.com/vi/{{ vid }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+						<span class="talk-play" aria-hidden="true"></span>
+					</span>
+				{% endif %}
+				<span class="talk-title">{{ item.data.title }}</span>
+			</a>
+			{% if item.data.authors %}
+				<p class="talk-meta">{{ item.data.authors }}{% if item.data.presentation_date %}, {{ item.data.presentation_date }}{% endif %}</p>
+			{% endif %}
+			{% if item.data.description %}
+				<p class="talk-description">{{ item.data.description }}</p>
+			{% endif %}
+		</li>
+	{% endfor %}
+	</ul>
+</section>
+{% endif %}
+
+<nav class="theme-next">
+	<h2 class="section-heading">Other themes</h2>
+	<ul class="theme-grid">
+		{% for other in themes %}
+			{% if other.slug != theme.slug %}
+			<div class="theme-card">
+				<h3><a href="/research/{{ other.slug }}/">{{ other.name }}</a></h3>
+				<p>{{ other.blurb }}</p>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</nav>
