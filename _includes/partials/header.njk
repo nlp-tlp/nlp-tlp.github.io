@@ -2,16 +2,16 @@
 <header class="header">
     <div class="container flex-container flex-align-center justify-space-between">
 
-      <div class="header-left flex-container flex-align-center">
-        <a href="https://uwa.edu.au" target="_blank" rel="noopener" aria-label="The University of Western Australia">
-          <div class="logo">
-            <img src="/images/logos/uwacrest-blue.png" alt="UWA logo" />
-          </div>
-        </a>
-        <a href="/" class="logo nlp-tlp-logo header-mark" aria-label="UWA NLP-TLP Group home">
-          <img src="/images/logos/nlp-tlp-logo.png" alt="NLP-TLP logo"/>
-        </a>
-      </div>
+      {#- The whole lockup is the home link, which is what people reach for.
+          UWA itself is linked from the footer. #}
+      <a href="/" class="header-left flex-container flex-align-center" aria-label="UWA NLP-TLP Group home">
+        <span class="logo">
+          <img src="/images/logos/uwacrest-blue.png" alt="The University of Western Australia" />
+        </span>
+        <span class="logo nlp-tlp-logo header-mark">
+          <img src="/images/logos/nlp-tlp-logo.png" alt="NLP-TLP"/>
+        </span>
+      </a>
 
       <nav class="topnav" aria-label="Main">
         <ul>

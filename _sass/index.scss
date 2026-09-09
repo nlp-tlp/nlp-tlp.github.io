@@ -1753,6 +1753,16 @@ footer a:visited {
 header {
   border-bottom: 1px solid $rule;
 
+  .header-left {
+    text-decoration: none;
+    height: 100%;
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   .header-mark {
     margin-left: 14px;
     display: flex;

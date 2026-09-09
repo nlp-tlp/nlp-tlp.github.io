@@ -1830,6 +1830,14 @@ footer a:visited:focus-visible {
 header {
   border-bottom: 1px solid #d9dee8;
 }
+header .header-left {
+  text-decoration: none;
+  height: 100%;
+}
+header .header-left .logo {
+  display: flex;
+  align-items: center;
+}
 header .header-mark {
   margin-left: 14px;
   display: flex;
