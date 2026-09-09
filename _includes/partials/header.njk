@@ -1,6 +1,6 @@
 {%- set navPages = collections.all | eleventyNavigation(navItem) %}
 <header class="header">
-    <div class="container flex-container flex-align-center justify-space-between">
+    <div class="container header-row">
 
       {#- The whole lockup is the home link, which is what people reach for.
           UWA itself is linked from the footer. #}
@@ -12,6 +12,15 @@
           <img src="/images/logos/nlp-tlp-logo.png" alt="NLP-TLP"/>
         </span>
       </a>
+
+      {#- Phone menu. A checkbox rather than a script, so the site still ships
+          no JavaScript; on wider screens the toggle is hidden and the list is
+          a row again. #}
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input visually-hidden">
+      <label for="nav-toggle" class="nav-toggle">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-text">Menu</span>
+      </label>
 
       <nav class="topnav" aria-label="Main">
         <ul>

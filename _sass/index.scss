@@ -2089,41 +2089,6 @@ img,
 /* ── Phone: header, people and footer ──────────────────────────────────── */
 
 @media (max-width: 650px) {
-  /* The header was taking a third of the screen before any content. */
-  header {
-    height: auto;
-    padding: 0.5rem 0 0.35rem;
-
-    .container {
-      padding: 0 14px;
-    }
-
-    .logo {
-      padding: 4px 6px;
-      height: 40px;
-    }
-
-    .header-mark {
-      margin-left: 6px;
-      img {
-        height: 30px;
-      }
-    }
-  }
-
-  .topnav {
-    margin-top: 0.35rem;
-
-    ul {
-      gap: 0.1rem 0.15rem;
-    }
-
-    a {
-      padding: 0.3em 0.5em;
-      font-size: 0.82em;
-      border-bottom-width: 2px;
-    }
-  }
 
   /* Footer: the lockup wrapped to five lines beside a 100px mark. */
   footer {
@@ -2192,5 +2157,122 @@ img,
 
   .people-strip-title {
     font-size: 0.85em;
+  }
+}
+
+/* ── The phone menu ────────────────────────────────────────────────────────
+   Six destinations will not fit one row on a 390px screen, and two loose
+   rows cost a third of the first screen. On a phone the list collapses
+   behind a button and opens as a column of full-width targets. The state is
+   a checkbox, so the site still ships no JavaScript. */
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  color: $ink;
+  font-size: 0.95em;
+  border: 1px solid $rule;
+  border-radius: 3px;
+  user-select: none;
+}
+
+.nav-toggle-bars {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+  }
+  &:before {
+    top: -6px;
+  }
+  &:after {
+    top: 6px;
+  }
+}
+
+.nav-toggle-input:focus-visible + .nav-toggle {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  header {
+    height: auto;
+    padding: 0.5rem 0 0.4rem;
+
+    .container {
+      padding: 0 14px;
+    }
+
+    .logo {
+      padding: 4px 6px;
+      height: 40px;
+    }
+
+    .header-mark {
+      margin-left: 6px;
+      img {
+        height: 30px;
+      }
+    }
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .topnav {
+    display: none;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-top: 1px solid $rule;
+  }
+
+  .nav-toggle-input:checked ~ .topnav {
+    display: block;
+  }
+
+  .topnav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .topnav li + li a {
+    border-top: 1px solid $rule;
+  }
+
+  .topnav a {
+    display: block;
+    padding: 0.85rem 0.2rem;
+    font-size: 1em;
+    border-bottom: 0;
+
+    &.active {
+      border-bottom: 0;
+      /* The gold marks the current page down the side, since there is no
+         underline to carry it in a stacked list. */
+      box-shadow: inset 3px 0 0 $gold;
+      padding-left: 0.8rem;
+    }
   }
 }
