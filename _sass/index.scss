@@ -2015,3 +2015,41 @@ header {
     gap: 2rem 1.75rem;
   }
 }
+
+/* Each part of a theme is a label in a left gutter beside its content, so
+   the label can never be mistaken for the first item in the list. */
+.theme-part {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0 2.5rem;
+  margin-bottom: 3rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.theme-part-label {
+  margin: 0;
+  padding-top: 0.15rem;
+  font-family: $primary_font;
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: $muted;
+  border-bottom: 0;
+}
+
+.theme-part-body {
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .theme-part {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .theme-part-label {
+    padding-top: 0;
+  }
+}

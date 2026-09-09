@@ -48,7 +48,9 @@ eleventyNavigation:
 		<h2 class="theme-block-title">{{ theme.name }}</h2>
 
 		{% if papers.length %}
-			<h3 class="theme-subheading">Publications</h3>
+			<div class="theme-part">
+			<h3 class="theme-part-label">Publications</h3>
+			<div class="theme-part-body">
 			<ul class="publications-list">
 			{% for item in papers %}
 				<li>
@@ -64,9 +66,12 @@ eleventyNavigation:
 				</li>
 			{% endfor %}
 			</ul>
+			</div></div>
 		{% endif %}
 		{% if demos.length %}
-			<h3 class="theme-subheading">Systems</h3>
+			<div class="theme-part">
+			<h3 class="theme-part-label">Systems</h3>
+			<div class="theme-part-body">
 			<ul class="project-strip">
 				{% for item in demos %}
 				<li>
@@ -77,9 +82,12 @@ eleventyNavigation:
 				</li>
 				{% endfor %}
 			</ul>
+			</div></div>
 		{% endif %}
 		{% if talks.length %}
-			<h3 class="theme-subheading">Talks</h3>
+			<div class="theme-part">
+			<h3 class="theme-part-label">Talks</h3>
+			<div class="theme-part-body">
 			<ul class="talk-grid">
 			{% for item in talks %}
 				{%- set vid = item.data.url | getYoutubeId %}
@@ -102,9 +110,12 @@ eleventyNavigation:
 				</li>
 			{% endfor %}
 			</ul>
+			</div></div>
 		{% endif %}
 		{% if projects.length %}
-			<h3 class="theme-subheading">Projects under way</h3>
+			<div class="theme-part">
+			<h3 class="theme-part-label">Projects</h3>
+			<div class="theme-part-body">
 			{% for item in projects %}
 				<article class="research-article">
 					<h4>{{ item.data.name }}</h4>
@@ -112,9 +123,12 @@ eleventyNavigation:
 					<p>{{ item.data.description | safe }}</p>
 				</article>
 			{% endfor %}
+			</div></div>
 		{% endif %}
 		{% if sems.length %}
-			<h3 class="theme-subheading">Seminars</h3>
+			<div class="theme-part">
+			<h3 class="theme-part-label">Seminars</h3>
+			<div class="theme-part-body">
 			{% for item in sems %}
 				<article class="research-article">
 					<h4>{{ item.data.title }}</h4>
@@ -124,6 +138,7 @@ eleventyNavigation:
 					{{ item.content | safe }}
 				</article>
 			{% endfor %}
+			</div></div>
 		{% endif %}
 	</section>
 {% endfor %}
