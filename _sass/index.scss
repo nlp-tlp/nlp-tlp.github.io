@@ -2158,6 +2158,22 @@ img,
   }
 }
 
+@media (max-width: 650px) {
+  /* Left-aligned in a half-width cell, every portrait sat against the left
+     of its own column and the block read as though it hung off that side.
+     Centring inside the cell balances the two columns against each other. */
+  .people-strip a {
+    text-align: center;
+  }
+
+  /* The portrait is a fixed-width block, so it needs auto margins; the
+     anchor is display:block and align-items would do nothing here. */
+  .people-strip-photo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (max-width: 480px) {
   /* Two across, so the portraits can be big enough to recognise. */
   .people-strip {
