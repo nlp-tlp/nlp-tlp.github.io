@@ -37,6 +37,18 @@ eleventyNavigation:
 </section>
 
 <section class="home-section">
+	<h2 class="section-heading">What we research</h2>
+	<div class="theme-grid">
+		{% for theme in themes %}
+		<div class="theme-card">
+			<h3><a href="/research/#{{ theme.slug }}">{{ theme.name }}</a></h3>
+			<p>{{ theme.blurb }}</p>
+		</div>
+		{% endfor %}
+	</div>
+</section>
+
+<section class="home-section">
 	<h2 class="section-heading">What we build</h2>
 	<p class="section-intro">
 		Every system below came out of the group's research and is running today.
@@ -52,18 +64,6 @@ eleventyNavigation:
 		{% endfor %}
 	</ul>
 	<p class="section-more"><a href="/projects/">All projects, with demos and papers</a></p>
-</section>
-
-<section class="home-section">
-	<h2 class="section-heading">What we research</h2>
-	<div class="theme-grid">
-		{% for theme in themes %}
-		<div class="theme-card">
-			<h3><a href="/research/#{{ theme.slug }}">{{ theme.name }}</a></h3>
-			<p>{{ theme.blurb }}</p>
-		</div>
-		{% endfor %}
-	</div>
 </section>
 
 <section class="home-section">
