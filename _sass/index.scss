@@ -1849,17 +1849,6 @@ header {
   display: inline-block;
 }
 
-/* Inside a block the sub-headings carry the structure, so they need a
-   little more presence than the plain label they were. */
-.theme-block .theme-subheading {
-  font-size: 1.05em;
-  color: $ink;
-  margin-top: 2.5em;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-}
 
 /* The cards at the top of the research page: an overview that doubles as
    the navigation into the theme blocks below. */
@@ -1915,5 +1904,97 @@ header {
 @media (max-width: 992px) {
   .theme-cards {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── One rhythm for everything inside a theme block ────────────────────────
+   Publications, systems, projects and talks were four different components
+   with four different left edges, indents and spacings. They now share a
+   single row pattern: flush left, hairline separated, same vertical step. */
+
+.theme-block {
+  $row-step: 0.9rem;
+
+  .theme-subheading {
+    font-size: 0.85em;
+    letter-spacing: 0.04em;
+    color: $muted;
+    font-weight: 600;
+    margin: 3rem 0 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $ink;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  /* Publications: a flush-left stack, not an indented bullet list. */
+  ul.publications-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.45;
+
+    li {
+      margin: 0;
+      padding: $row-step 0;
+      border-bottom: 1px solid $rule;
+    }
+
+    .publication-title {
+      font-weight: 600;
+      color: $ink;
+      margin-bottom: 0.2em;
+    }
+
+    .publication-authors,
+    .publication-venue {
+      color: $muted;
+      font-size: 0.88em;
+    }
+  }
+
+  /* Systems: same rows, minus the border the strip draws for itself. */
+  .project-strip {
+    border-top: 0;
+
+    a {
+      padding: $row-step 0;
+    }
+  }
+
+  /* Projects: a row too, with the description held to a readable measure. */
+  .research-article {
+    max-width: none;
+    margin: 0;
+    padding: $row-step 0;
+    border-bottom: 1px solid $rule;
+
+    h4 {
+      margin: 0 0 0.2em;
+      font-size: 1em;
+    }
+
+    .research-authors {
+      margin: 0 0 0.5em;
+      font-size: 0.88em;
+    }
+
+    p:not(.research-authors) {
+      @include measure;
+      margin: 0;
+      font-size: 0.95em;
+      line-height: 1.6;
+      color: $muted;
+    }
+  }
+
+  /* Talks: a grid rather than a stack, but starting on the same left edge
+     and opening with the same step below the heading. */
+  .talk-grid {
+    margin-top: $row-step;
+    gap: 2rem 1.75rem;
   }
 }
