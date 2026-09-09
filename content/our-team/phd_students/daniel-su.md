@@ -5,5 +5,5 @@ project_title: An Integrated Multi-Task Deep Learning Framework for Geological A
 website: https://criticalresources.org.au/contributor/uwa-daniel-su/
 image_filename: daniel-su.jpg
 group: PhD Students
-order: 3
+order: 4
 ---
