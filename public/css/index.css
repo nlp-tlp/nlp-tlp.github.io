@@ -1896,7 +1896,7 @@ header .header-mark img {
 }
 /* ── Research: one block per theme, each holding everything for it ─────── */
 .theme-block {
-  margin-bottom: 4.5rem;
+  margin-bottom: 5.5rem;
   scroll-margin-top: 1.5rem;
 }
 .theme-block:last-child {
@@ -1905,9 +1905,10 @@ header .header-mark img {
 
 .theme-block-title {
   width: auto;
-  margin: 0 0 1.75rem;
-  padding-bottom: 0.35em;
-  font-size: 1.4em;
+  margin: 0 0 2.25rem;
+  padding-bottom: 0.3em;
+  font-size: 1.9em;
+  line-height: 1.15;
   border-bottom: 3px solid #c8a415;
   display: inline-block;
 }
@@ -1970,12 +1971,17 @@ header .header-mark img {
    left, same vertical step, and separated by space rather than by rules.
    A line per row turned the page into a grid; the only rules left are the
    one under each theme title and the ones the cards already carry. */
+.theme-block {
+  /* These label the kind of work, so they are headings in the site's own
+     heading face, not the small tracked-out labels they were. */
+}
 .theme-block .theme-subheading {
-  font-size: 0.85em;
-  letter-spacing: 0.04em;
-  color: #5b6472;
+  font-family: "Lora", serif;
+  font-size: 1.08em;
   font-weight: 600;
-  margin: 3.25rem 0 1.25rem;
+  letter-spacing: 0;
+  color: #22262e;
+  margin: 3.25rem 0 1.1rem;
   padding-bottom: 0;
   border-bottom: 0;
 }

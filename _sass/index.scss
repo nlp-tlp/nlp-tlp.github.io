@@ -1832,7 +1832,7 @@ header {
 /* ── Research: one block per theme, each holding everything for it ─────── */
 
 .theme-block {
-  margin-bottom: 4.5rem;
+  margin-bottom: 5.5rem;
   scroll-margin-top: 1.5rem;
 
   &:last-child {
@@ -1842,9 +1842,10 @@ header {
 
 .theme-block-title {
   width: auto;
-  margin: 0 0 1.75rem;
-  padding-bottom: 0.35em;
-  font-size: 1.4em;
+  margin: 0 0 2.25rem;
+  padding-bottom: 0.3em;
+  font-size: 1.9em;
+  line-height: 1.15;
   border-bottom: 3px solid $gold;
   display: inline-block;
 }
@@ -1917,12 +1918,15 @@ header {
 .theme-block {
   $row-step: 1.35rem;
 
+  /* These label the kind of work, so they are headings in the site's own
+     heading face, not the small tracked-out labels they were. */
   .theme-subheading {
-    font-size: 0.85em;
-    letter-spacing: 0.04em;
-    color: $muted;
+    font-family: $heading_font;
+    font-size: 1.08em;
     font-weight: 600;
-    margin: 3.25rem 0 1.25rem;
+    letter-spacing: 0;
+    color: $ink;
+    margin: 3.25rem 0 1.1rem;
     padding-bottom: 0;
     border-bottom: 0;
 
