@@ -2078,3 +2078,23 @@ header {
     padding-top: 0;
   }
 }
+
+/* A tutorial with nowhere to link still needs the strip's two columns. */
+.project-strip-static {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.4rem 0.5rem 0.4rem 0;
+  color: $ink;
+}
+
+/* Tutorial names run longer than the system names the strip was sized for. */
+.project-strip-wide .project-strip-name {
+  flex: 0 0 15rem;
+}
+
+@media (max-width: 800px) {
+  .project-strip-wide .project-strip-name {
+    flex: none;
+  }
+}

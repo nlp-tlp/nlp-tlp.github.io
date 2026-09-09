@@ -20,7 +20,9 @@ eleventyNavigation:
 		{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
 		{%- set projects = collections.current_research | withTheme(theme.slug) %}
 	{%- set sems = collections.seminars | withTheme(theme.slug) %}
+	{%- set tutorials = collections.tutorials | withTheme(theme.slug) %}
 		{%- set sems = collections.seminars | withTheme(theme.slug) %}
+	{%- set tutorials = collections.tutorials | withTheme(theme.slug) %}
 		<li class="theme-card-large">
 			<h2><a href="#{{ theme.slug }}">{{ theme.name }}</a></h2>
 			<p>{{ theme.blurb }}</p>
@@ -30,6 +32,7 @@ eleventyNavigation:
 				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
 				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %}{% endif %}
 				{%- if sems.length %}, {{ sems.length }} seminar{% if sems.length != 1 %}s{% endif %}{% endif %}
+				{%- if tutorials.length %}, {{ tutorials.length }} tutorial{% if tutorials.length != 1 %}s{% endif %}{% endif %}
 			</p>
 		</li>
 	{% endfor %}
@@ -41,6 +44,7 @@ eleventyNavigation:
 	{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
 	{%- set projects = collections.current_research | withTheme(theme.slug) %}
 	{%- set sems = collections.seminars | withTheme(theme.slug) %}
+	{%- set tutorials = collections.tutorials | withTheme(theme.slug) %}
 
 	<section class="theme-block" id="{{ theme.slug }}">
 		<div class="theme-block-bar">
@@ -112,6 +116,29 @@ eleventyNavigation:
 			</ul>
 			</div></div>
 		{% endif %}
+		{% if tutorials.length %}
+			<div class="theme-part">
+			<h3 class="theme-part-label">Tutorials</h3>
+			<div class="theme-part-body">
+			<ul class="project-strip project-strip-wide">
+				{% for item in tutorials %}
+				<li>
+					{% if item.data.url %}
+					<a href="{{ item.data.url }}" target="_blank" rel="noopener">
+						<span class="project-strip-name">{{ item.data.name }}</span>
+						<span class="project-strip-byline">{{ item.data.description }}{% if item.data.venue %} &middot; {{ item.data.venue }}{% endif %}</span>
+					</a>
+					{% else %}
+					<span class="project-strip-static">
+						<span class="project-strip-name">{{ item.data.name }}</span>
+						<span class="project-strip-byline">{{ item.data.description }}{% if item.data.venue %} &middot; {{ item.data.venue }}{% endif %}</span>
+					</span>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+			</div></div>
+		{% endif %}
 		{% if projects.length %}
 			<div class="theme-part">
 			<h3 class="theme-part-label">Projects</h3>
@@ -147,7 +174,8 @@ eleventyNavigation:
 {%- set orphanTalks = collections.presentations | notInAnyTheme(themes) %}
 {%- set unthemed = collections.current_research | withoutAnyTheme(themes) %}
 {%- set looseSeminars = collections.seminars | withoutAnyTheme(themes) %}
-{% if orphanPapers.length or orphanTalks.length or unthemed.length or looseSeminars.length %}
+{%- set looseTutorials = collections.tutorials | withoutAnyTheme(themes) %}
+{% if orphanPapers.length or orphanTalks.length or unthemed.length or looseSeminars.length or looseTutorials.length %}
 	<section class="theme-block" id="other">
 		<div class="theme-block-bar">
 			<h2 class="theme-block-title">Other work</h2>
@@ -158,6 +186,12 @@ eleventyNavigation:
 				<h4>{{ item.data.name }}</h4>
 				<p class="research-authors">{{ item.data.authors }}</p>
 				<p>{{ item.data.description | safe }}</p>
+			</article>
+		{% endfor %}
+		{% for item in looseTutorials %}
+			<article class="research-article">
+				<h4>{% if item.data.url %}<a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.name }}</a>{% else %}{{ item.data.name }}{% endif %}</h4>
+				<p>{{ item.data.description }}</p>
 			</article>
 		{% endfor %}
 		{% for item in looseSeminars %}
