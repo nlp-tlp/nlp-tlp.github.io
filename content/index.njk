@@ -55,6 +55,35 @@ eleventyNavigation:
 	</div>
 </section>
 
+<section class="home-section">
+	<h2 class="section-heading">Who we are</h2>
+	<p class="section-intro">
+		Academics and research students from computer science, linguistics and
+		engineering.
+	</p>
+	<ul class="people-strip">
+		{% for item in collections.people_academics | sortByOrder %}
+		<li>
+			<a href="/people/">
+				<span class="people-strip-photo"{% if item.data.image_filename %} style="background-image: url('/images/people/{{ item.data.image_filename }}')"{% endif %}></span>
+				<span class="people-strip-name">{{ item.data.name }}</span>
+				<span class="people-strip-title">{{ item.data.title }}</span>
+			</a>
+		</li>
+		{% endfor %}
+		{% for item in collections.people_phd_students | sortByOrder %}
+		<li>
+			<a href="/people/">
+				<span class="people-strip-photo"{% if item.data.image_filename %} style="background-image: url('/images/people/{{ item.data.image_filename }}')"{% endif %}></span>
+				<span class="people-strip-name">{{ item.data.name }}</span>
+				<span class="people-strip-title">{{ item.data.title }}</span>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+	<p class="section-more"><a href="/people/">Everyone, including alumni</a></p>
+</section>
+
 <section class="home-section" id="who-we-work-with">
 	<h2 class="section-heading">Who we work with</h2>
 	<p class="section-intro">
