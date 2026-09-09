@@ -64,20 +64,11 @@
 
 		{% include 'partials/hero.njk' %}
 
-		{% if wide %}
-			<div class="container padded-v-4x">
-				<main id="skip">
-				{{ content | safe }}
-				</main>
-			</div>
-		{% else %}
-			<div class="container main-flex-container flex-container padded-v-4x">
-				{% include 'partials/sidenav.njk' %}
-				<main class="padded margin-left-3x" id="skip">
-				{{ content | safe }}
-				</main>
-			</div>
-		{% endif %}
+		<div class="container padded-v-4x">
+			<main id="skip">
+			{{ content | safe }}
+			</main>
+		</div>
 
 		{% include 'partials/footer.njk' %}
 

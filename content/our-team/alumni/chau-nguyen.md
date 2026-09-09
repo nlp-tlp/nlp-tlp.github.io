@@ -1,8 +1,8 @@
 ---
 name: Chau Nguyen
-title: PhD Student
+title: PhD (graduated)
 project_title: Query Embedding for Long Reasoning over Natural-Technical Domains
 image_filename: chau-nguyen.jpg
-group: PhD Students
-order: 2
+group: Alumni
+order: 5
 ---

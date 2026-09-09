@@ -1,20 +1,27 @@
+{%- set navPages = collections.all | eleventyNavigation(navItem) %}
 <header class="header">
     <div class="container flex-container flex-align-center justify-space-between">
 
       <div class="header-left flex-container flex-align-center">
-        <a href="https://uwa.edu.au" target="_blank">
+        <a href="https://uwa.edu.au" target="_blank" rel="noopener" aria-label="The University of Western Australia">
           <div class="logo">
             <img src="/images/logos/uwacrest-blue.png" alt="UWA logo" />
           </div>
         </a>
+        <a href="/" class="logo nlp-tlp-logo header-mark" aria-label="UWA NLP-TLP Group home">
+          <img src="/images/logos/nlp-tlp-logo.png" alt="NLP-TLP logo"/>
+        </a>
       </div>
-      <div class="header-right flex-container flex-align-center">
-       <div class="logo-group">
 
-          <div class="logo nlp-tlp-logo">
-            <img src="/images/logos/nlp-tlp-logo.png" alt="NLP-TLP Logo"/>
-          </div>
-        </div>
-      </div>
+      <nav class="topnav" aria-label="Main">
+        <ul>
+          {% for entry in navPages %}
+            {% if entry.title != "Home" %}
+              <li><a href="{{ entry.url }}"{% if entry.url == page.url or entry.url == page.url | getbase %} class="active" aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+          <li><a href="https://github.com/nlp-tlp/" target="_blank" rel="noopener">GitHub<svg class="external-mark" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+      </nav>
     </div>
 </header>
