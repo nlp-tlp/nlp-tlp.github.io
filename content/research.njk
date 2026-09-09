@@ -11,36 +11,41 @@ eleventyNavigation:
 <p class="page-intro">
 	Our work runs from the raw text an engineer types into a work order through
 	to a knowledge graph an organisation can reason over. It sits in four
-	themes; each one gathers the systems, projects, papers and talks that came
-	out of it.
+	themes; each card below leads to that theme's systems, projects, papers,
+	talks and seminars.
 </p>
 
-<nav class="theme-jump" aria-label="Research themes">
-	<ul>
-		{% for theme in themes %}
-			<li><a href="#{{ theme.slug }}">{{ theme.name }}</a></li>
-		{% endfor %}
-		<li><a href="#seminars">Seminars</a></li>
-	</ul>
-</nav>
+<ul class="theme-cards">
+	{% for theme in themes %}
+		{%- set papers = collections.publications | inTheme(theme.groups) %}
+		{%- set talks = collections.presentations | inTheme(theme.groups) %}
+		{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
+		{%- set projects = collections.current_research | withTheme(theme.slug) %}
+	{%- set sems = collections.seminars | withTheme(theme.slug) %}
+		{%- set sems = collections.seminars | withTheme(theme.slug) %}
+		<li class="theme-card-large">
+			<h2><a href="#{{ theme.slug }}">{{ theme.name }}</a></h2>
+			<p>{{ theme.blurb }}</p>
+			<p class="theme-card-counts">
+				{{ papers.length }} publication{% if papers.length != 1 %}s{% endif %}
+				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
+				{%- if demos.length %}, {{ demos.length }} system{% if demos.length != 1 %}s{% endif %}{% endif %}
+				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %}{% endif %}
+				{%- if sems.length %}, {{ sems.length }} seminar{% if sems.length != 1 %}s{% endif %}{% endif %}
+			</p>
+		</li>
+	{% endfor %}
+</ul>
 
 {% for theme in themes %}
 	{%- set papers = collections.publications | inTheme(theme.groups) | newestFirst %}
 	{%- set talks = collections.presentations | inTheme(theme.groups) | newestFirst %}
 	{%- set demos = collections.software_demos | demosOfTheme(theme.demos) %}
 	{%- set projects = collections.current_research | withTheme(theme.slug) %}
+	{%- set sems = collections.seminars | withTheme(theme.slug) %}
 
 	<section class="theme-block" id="{{ theme.slug }}">
-		<div class="theme-block-head">
-			<h2>{{ theme.name }}</h2>
-			<p class="theme-block-blurb">{{ theme.blurb }}</p>
-			<p class="theme-block-counts">
-				{{ papers.length }} publication{% if papers.length != 1 %}s{% endif %}
-				{%- if talks.length %}, {{ talks.length }} talk{% if talks.length != 1 %}s{% endif %}{% endif %}
-				{%- if demos.length %}, {{ demos.length }} system{% if demos.length != 1 %}s{% endif %}{% endif %}
-				{%- if projects.length %}, {{ projects.length }} project{% if projects.length != 1 %}s{% endif %} under way{% endif %}
-			</p>
-		</div>
+		<h2 class="theme-block-title">{{ theme.name }}</h2>
 
 		{% if demos.length %}
 			<h3 class="theme-subheading">Systems</h3>
@@ -111,23 +116,42 @@ eleventyNavigation:
 			{% endfor %}
 			</ul>
 		{% endif %}
+
+		{% if sems.length %}
+			<h3 class="theme-subheading">Seminars</h3>
+			{% for item in sems %}
+				<article class="research-article">
+					<h4>{{ item.data.title }}</h4>
+					<p class="research-authors">
+						Facilitated by {{ item.data.facilitated_by }}{% if item.data.seminar_date %}, {{ item.data.seminar_date }}{% endif %}{% if item.data.venue %}, {{ item.data.venue }}{% endif %}
+					</p>
+					{{ item.content | safe }}
+				</article>
+			{% endfor %}
+		{% endif %}
 	</section>
 {% endfor %}
 
 {%- set orphanPapers = collections.publications | notInAnyTheme(themes) %}
 {%- set orphanTalks = collections.presentations | notInAnyTheme(themes) %}
 {%- set unthemed = collections.current_research | withoutAnyTheme(themes) %}
-{% if orphanPapers.length or orphanTalks.length or unthemed.length %}
+{%- set looseSeminars = collections.seminars | withoutAnyTheme(themes) %}
+{% if orphanPapers.length or orphanTalks.length or unthemed.length or looseSeminars.length %}
 	<section class="theme-block" id="other">
-		<div class="theme-block-head">
-			<h2>Other work</h2>
-			<p class="theme-block-blurb">Work that does not sit under a single theme.</p>
-		</div>
+		<h2 class="theme-block-title">Other work</h2>
+		<p class="theme-blurb">Work that does not sit under a single theme.</p>
 		{% for item in unthemed %}
 			<article class="research-article">
 				<h4>{{ item.data.name }}</h4>
 				<p class="research-authors">{{ item.data.authors }}</p>
 				<p>{{ item.data.description | safe }}</p>
+			</article>
+		{% endfor %}
+		{% for item in looseSeminars %}
+			<article class="research-article">
+				<h4>{{ item.data.title }}</h4>
+				<p class="research-authors">Facilitated by {{ item.data.facilitated_by }}{% if item.data.seminar_date %}, {{ item.data.seminar_date }}{% endif %}</p>
+				{{ item.content | safe }}
 			</article>
 		{% endfor %}
 		{% if orphanPapers.length or orphanTalks.length %}
@@ -152,18 +176,3 @@ eleventyNavigation:
 	</section>
 {% endif %}
 
-<section class="theme-block" id="seminars">
-	<div class="theme-block-head">
-		<h2>Seminars</h2>
-		<p class="theme-block-blurb">Reading and discussion sessions the group runs.</p>
-	</div>
-	{% for item in collections.seminars %}
-		<article class="research-article">
-			<h4>{{ item.data.title }}</h4>
-			<p class="research-authors">
-				Facilitated by {{ item.data.facilitated_by }}{% if item.data.seminar_date %}, {{ item.data.seminar_date }}{% endif %}{% if item.data.venue %}, {{ item.data.venue }}{% endif %}
-			</p>
-			{{ item.content | safe }}
-		</article>
-	{% endfor %}
-</section>

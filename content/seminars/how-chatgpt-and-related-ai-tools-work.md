@@ -1,4 +1,5 @@
 ---
+theme: language-and-reasoning
 title: How ChatGPT and Related AI Tools work
 seminar_date: Friday 17 February 2023, 2-4pm
 venue: EZone Central [209] Giumelli Learning Studio 3

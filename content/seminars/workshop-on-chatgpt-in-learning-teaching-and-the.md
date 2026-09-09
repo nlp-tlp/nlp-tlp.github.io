@@ -1,4 +1,5 @@
 ---
+theme: language-and-reasoning
 title: Workshop on ChatGPT in Learning, Teaching and the Workplace
 seminar_date: Wednesday 15 February 2023, 2-4pm
 venue: "ARTS: [ G59] Fox Lecture"

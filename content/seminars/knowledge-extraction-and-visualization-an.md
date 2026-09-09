@@ -1,4 +1,5 @@
 ---
+theme: knowledge-graphs-and-ontologies
 title: Knowledge Extraction and Visualization an Enablers of Digital Content Value Chains
 seminar_date: Tuesday 14 February 2023, 1-2pm
 venue: EZone Central [209] Giumelli Learning Studio 3

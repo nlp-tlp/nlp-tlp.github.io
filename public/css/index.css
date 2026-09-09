@@ -1903,32 +1903,13 @@ header .header-mark img {
   margin-bottom: 0;
 }
 
-.theme-block-head {
-  border: 1px solid #d9dee8;
-  border-left: 4px solid #c8a415;
-  background: #fff;
-  padding: 1.5rem 1.7rem;
-  margin-bottom: 2rem;
-}
-.theme-block-head h2 {
+.theme-block-title {
   width: auto;
-  margin: 0 0 0.45em;
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.35em;
   font-size: 1.4em;
-}
-
-.theme-block-blurb {
-  max-width: 68ch;
-  margin: 0;
-  color: #5b6472;
-  line-height: 1.65;
-}
-
-.theme-block-counts {
-  margin: 1rem 0 0;
-  padding-top: 0.8rem;
-  border-top: 1px solid #d9dee8;
-  font-size: 0.85em;
-  color: #5b6472;
+  border-bottom: 3px solid #c8a415;
+  display: inline-block;
 }
 
 /* Inside a block the sub-headings carry the structure, so they need a
@@ -1940,6 +1921,59 @@ header .header-mark img {
 }
 .theme-block .theme-subheading:first-of-type {
   margin-top: 0;
+}
+
+/* The cards at the top of the research page: an overview that doubles as
+   the navigation into the theme blocks below. */
+.theme-cards {
+  list-style: none;
+  margin: 0 0 4rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.theme-card-large {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #d9dee8;
+  background: #fff;
+  padding: 1.5rem 1.6rem;
+}
+.theme-card-large h2 {
+  width: auto;
+  margin: 0 0 0.45em;
+  font-size: 1.2em;
+}
+.theme-card-large h2 a {
+  text-decoration: none;
+}
+.theme-card-large h2 a:hover, .theme-card-large h2 a:focus-visible {
+  text-decoration: underline;
+}
+.theme-card-large > p {
+  margin: 0;
+  color: #5b6472;
+  line-height: 1.6;
+  font-size: 0.94em;
+}
+
+.theme-card-counts {
+  margin-top: auto !important;
+  padding-top: 0.9rem;
+  border-top: 1px solid #d9dee8;
+  font-size: 0.83em !important;
+}
+
+.theme-card-large .theme-card-counts {
+  margin-top: 1.1rem !important;
+}
+
+@media (max-width: 992px) {
+  .theme-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

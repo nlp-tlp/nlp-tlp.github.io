@@ -201,7 +201,7 @@ module.exports = function (eleventyConfig) {
 			// still land somewhere useful instead of a 404.
 			["publications/index", "/research/"],
 			["presentations/index", "/research/"],
-			["seminars/index", "/research/#seminars"],
+			["seminars/index", "/research/"],
 			["current-research/index", "/research/"],
 			["collaborations/index", "/#who-we-work-with"],
 			["software_demos/index", "/projects/"],
