@@ -1296,8 +1296,31 @@ b {
 
 /* ── Home ──────────────────────────────────────────────────────────────── */
 .lede-section {
-  max-width: 60ch;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 3.5rem;
+  align-items: start;
   margin-bottom: 4rem;
+}
+
+.lede-text {
+  max-width: 56ch;
+}
+
+.lede-figure {
+  margin: 0;
+}
+.lede-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #d9dee8;
+}
+
+.lede-figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85em;
+  color: #5b6472;
 }
 
 .lede {
@@ -1754,6 +1777,13 @@ footer a:visited:focus-visible {
   }
   .people-strip {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .lede-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .lede-figure {
+    max-width: 520px;
   }
   .footer-columns {
     grid-template-columns: 1fr 1fr;
